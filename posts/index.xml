@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Home</title>
+    <link>/posts/</link>
+    <description>Recent content in Posts on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 21 Aug 2022 00:56:12 +0530</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hackthebox neonify writeup</title>
+      <link>/posts/first-post/</link>
+      <pubDate>Sun, 21 Aug 2022 00:56:12 +0530</pubDate>
+      
+      <guid>/posts/first-post/</guid>
+      <description>Challenge Description : Name : neonify
+Difficulty : Easy
+Points : 20
+“ It’s time for a shiny new reveal for the first-ever text neonifier. Come test out our brand new website and make any text glow like a lo-fi neon tube!“ What’s This?
+The website takes input from the user and styles it in neon
+Looking at the code Shows it runs ruby in the backend and checks for the user input using regex is between a-z and 0–9.</description>
+    </item>
+    
+  </channel>
+</rss>
