@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Home</title>
-    <link>https://s4nshine.github.io/</link>
+    <link>/</link>
     <description>Recent content on Home</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 21 Aug 2022 00:56:12 +0530</lastBuildDate><atom:link href="https://s4nshine.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 21 Aug 2022 00:56:12 +0530</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hackthebox neonify writeup</title>
-      <link>https://s4nshine.github.io/posts/first-post/</link>
+      <link>/posts/first-post/</link>
       <pubDate>Sun, 21 Aug 2022 00:56:12 +0530</pubDate>
       
-      <guid>https://s4nshine.github.io/posts/first-post/</guid>
+      <guid>/posts/first-post/</guid>
       <description>Challenge Description : Name : neonify
 Difficulty : Easy
 Points : 20

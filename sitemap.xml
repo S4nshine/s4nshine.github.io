@@ -2,17 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://s4nshine.github.io/posts/first-post/</loc>
+    <loc>/posts/first-post/</loc>
     <lastmod>2022-08-21T00:56:12+05:30</lastmod>
   </url><url>
-    <loc>https://s4nshine.github.io/</loc>
+    <loc>/</loc>
     <lastmod>2022-08-21T00:56:12+05:30</lastmod>
   </url><url>
-    <loc>https://s4nshine.github.io/posts/</loc>
+    <loc>/posts/</loc>
     <lastmod>2022-08-21T00:56:12+05:30</lastmod>
   </url><url>
-    <loc>https://s4nshine.github.io/categories/</loc>
+    <loc>/categories/</loc>
   </url><url>
-    <loc>https://s4nshine.github.io/tags/</loc>
+    <loc>/tags/</loc>
   </url>
 </urlset>
